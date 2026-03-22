@@ -3,15 +3,19 @@ import { useEffect, useState } from "react";
 import { useAuthStore } from "#/store/auth";
 import { t } from "#/i18n";
 
-export const Route = createFileRoute("/login")({ component: LoginPage });
+export const Route = createFileRoute("/login")({
+  component: LoginPage,
+  head: () => ({
+    meta: [{ title: "Prijava — Zvest" }],
+  }),
+});
 
 function LoginPage() {
-  const { signIn, signUp, user, loading } = useAuthStore();
+  const { signIn, user, loading } = useAuthStore();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
-  const [isSignUp, setIsSignUp] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
@@ -25,9 +29,7 @@ function LoginPage() {
     setError(null);
     setSubmitting(true);
 
-    const { error } = isSignUp
-      ? await signUp(email, password)
-      : await signIn(email, password);
+    const { error } = await signIn(email, password);
 
     setSubmitting(false);
 
@@ -62,10 +64,10 @@ function LoginPage() {
     <main className="flex min-h-screen items-center justify-center px-4 py-8">
       <div className="island-shell rise-in w-full max-w-md rounded-2xl p-6 sm:p-8">
         <h1 className="display-title mb-2 text-xl font-bold text-[var(--sea-ink)] sm:text-2xl">
-          {isSignUp ? t.login.signUpTitle : t.login.title}
+          {t.login.title}
         </h1>
         <p className="mb-5 text-sm text-[var(--sea-ink-soft)] sm:mb-6">
-          {isSignUp ? t.login.signUpSubtitle : t.login.subtitle}
+          {t.login.subtitle}
         </p>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
@@ -117,27 +119,11 @@ function LoginPage() {
             disabled={submitting}
             className="rounded-full bg-[var(--lagoon-deep)] px-5 py-2.5 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-[var(--lagoon)] disabled:opacity-50 disabled:hover:translate-y-0"
           >
-            {submitting
-              ? t.login.loading
-              : isSignUp
-                ? t.login.signUp
-                : t.login.signIn}
+            {submitting ? t.login.loading : t.login.signIn}
           </button>
         </form>
 
-        <p className="mt-5 text-center text-sm text-[var(--sea-ink-soft)] sm:mt-6">
-          {isSignUp ? t.login.hasAccount : t.login.noAccount}{" "}
-          <button
-            type="button"
-            onClick={() => {
-              setIsSignUp(!isSignUp);
-              setError(null);
-            }}
-            className="font-semibold text-[var(--lagoon-deep)] hover:underline"
-          >
-            {isSignUp ? t.login.signIn : t.login.signUp}
-          </button>
-        </p>
+
       </div>
     </main>
   );

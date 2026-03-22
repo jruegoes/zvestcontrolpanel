@@ -16,6 +16,9 @@ import {
 
 export const Route = createFileRoute("/_authenticated/dashboard/customers")({
   component: CustomersPage,
+  head: () => ({
+    meta: [{ title: "Stranke — Zvest" }],
+  }),
 });
 
 /* ------------------------------------------------------------------ */

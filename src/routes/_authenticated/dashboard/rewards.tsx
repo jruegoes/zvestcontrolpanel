@@ -14,6 +14,9 @@ import {
 
 export const Route = createFileRoute("/_authenticated/dashboard/rewards")({
   component: RewardsPage,
+  head: () => ({
+    meta: [{ title: "Nagrade & Kuponi — Zvest" }],
+  }),
 });
 
 /* ------------------------------------------------------------------ */

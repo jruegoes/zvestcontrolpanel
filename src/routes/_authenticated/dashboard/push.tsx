@@ -17,6 +17,9 @@ import {
 
 export const Route = createFileRoute("/_authenticated/dashboard/push")({
   component: PushPage,
+  head: () => ({
+    meta: [{ title: "Push obvestila — Zvest" }],
+  }),
 });
 
 /* ------------------------------------------------------------------ */

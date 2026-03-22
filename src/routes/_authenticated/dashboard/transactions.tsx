@@ -18,6 +18,9 @@ export const Route = createFileRoute(
   "/_authenticated/dashboard/transactions",
 )({
   component: TransactionsPage,
+  head: () => ({
+    meta: [{ title: "Transakcije — Zvest" }],
+  }),
 });
 
 /* ------------------------------------------------------------------ */

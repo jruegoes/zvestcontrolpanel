@@ -5,6 +5,9 @@ import { api } from "#/lib/api";
 
 export const Route = createFileRoute("/_authenticated/dashboard/profile")({
   component: ShopProfilePage,
+  head: () => ({
+    meta: [{ title: "Profil trgovine — Zvest" }],
+  }),
 });
 
 interface ShopData {

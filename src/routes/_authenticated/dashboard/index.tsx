@@ -5,6 +5,9 @@ import ShopDashboard from "#/components/ShopDashboard";
 
 export const Route = createFileRoute("/_authenticated/dashboard/")({
   component: DashboardIndex,
+  head: () => ({
+    meta: [{ title: "Nadzorna plošča — Zvest" }],
+  }),
 });
 
 function DashboardIndex() {
