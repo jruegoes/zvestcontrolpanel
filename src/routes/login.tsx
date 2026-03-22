@@ -2,6 +2,7 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { useAuthStore } from "#/store/auth";
 import { t } from "#/i18n";
+import ThemeToggle from "#/components/ThemeToggle";
 
 export const Route = createFileRoute("/login")({
   component: LoginPage,
@@ -124,6 +125,9 @@ function LoginPage() {
         </form>
 
 
+      </div>
+      <div className="fixed bottom-4 left-4 z-50">
+        <ThemeToggle />
       </div>
     </main>
   );

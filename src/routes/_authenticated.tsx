@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { useAuthStore } from "#/store/auth";
 import { t } from "#/i18n";
 import ShopSidebar from "#/components/ShopSidebar";
+import ThemeToggle from "#/components/ThemeToggle";
 
 export const Route = createFileRoute("/_authenticated")({
   component: AuthenticatedLayout,
@@ -47,6 +48,9 @@ function AuthenticatedLayout() {
         <main className="flex-1 overflow-y-auto px-4 pb-10 pt-6 sm:px-6 sm:pt-8 lg:px-10">
           <Outlet />
         </main>
+        <div className="fixed bottom-4 left-4 z-50">
+          <ThemeToggle />
+        </div>
       </div>
     );
   }
@@ -75,6 +79,9 @@ function AuthenticatedLayout() {
         </button>
       </div>
       <Outlet />
+      <div className="fixed bottom-4 left-4 z-50">
+        <ThemeToggle />
+      </div>
     </div>
   );
 }
