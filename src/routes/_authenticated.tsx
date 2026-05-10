@@ -48,9 +48,6 @@ function AuthenticatedLayout() {
         <main className="flex-1 overflow-y-auto px-4 pb-10 pt-6 sm:px-6 sm:pt-8 lg:px-10">
           <Outlet />
         </main>
-        <div className="fixed bottom-4 right-4 z-50">
-          <ThemeToggle />
-        </div>
       </div>
     );
   }

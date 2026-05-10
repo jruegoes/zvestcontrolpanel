@@ -2,6 +2,7 @@ import { Link, useMatchRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { useAuthStore } from "#/store/auth";
 import { t } from "#/i18n";
+import SidebarThemeSwitch from "#/components/SidebarThemeSwitch";
 import {
   LayoutDashboard,
   Store,
@@ -127,6 +128,11 @@ export default function ShopSidebar() {
             })}
           </ul>
         </nav>
+
+        {/* Theme switch */}
+        <div className="border-t border-[var(--line)] px-3 py-3">
+          <SidebarThemeSwitch collapsed={collapsed} />
+        </div>
 
         {/* Collapse toggle (desktop only) */}
         <div className="hidden border-t border-[var(--line)] px-3 py-2 lg:block">
