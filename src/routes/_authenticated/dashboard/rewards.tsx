@@ -10,6 +10,7 @@ import {
   X,
   Gift,
   ImageOff,
+  Cake,
 } from "lucide-react";
 
 export const Route = createFileRoute("/_authenticated/dashboard/rewards")({
@@ -46,6 +47,7 @@ interface Coupon {
   used_count: number;
   image_url?: string;
   is_active: boolean;
+  is_birthday_only?: boolean;
   created_at: string;
 }
 
@@ -102,6 +104,7 @@ const EMPTY_FORM = {
   expires_at: "",
   image_url: "",
   is_active: true,
+  is_birthday_only: false,
 };
 
 /* ------------------------------------------------------------------ */
@@ -263,6 +266,7 @@ function RewardsPage() {
       expires_at: coupon.expires_at ? coupon.expires_at.slice(0, 10) : "",
       image_url: coupon.image_url || "",
       is_active: coupon.is_active,
+      is_birthday_only: coupon.is_birthday_only ?? false,
     });
     setEditingId(coupon.id);
     setModalError(null);
@@ -278,6 +282,7 @@ function RewardsPage() {
       name: form.name,
       type: form.type,
       is_active: form.is_active,
+      is_birthday_only: form.is_birthday_only,
       points_required: form.points_required || 0,
     };
 
@@ -481,6 +486,14 @@ function RewardsPage() {
                   {!coupon.is_active && (
                     <div className="absolute left-3 top-3 rounded-full bg-gray-800/70 px-2.5 py-0.5 text-xs font-semibold text-white backdrop-blur-sm">
                       {c.inactive}
+                    </div>
+                  )}
+                  {/* Birthday-only pill */}
+                  {coupon.is_birthday_only && (
+                    <div
+                      className={`absolute ${coupon.is_active ? "left-3" : "left-24"} top-3 inline-flex items-center gap-1 rounded-full bg-pink-100/90 px-2.5 py-0.5 text-xs font-semibold text-pink-700 backdrop-blur-sm`}
+                    >
+                      🎂 {c.birthdayOnlyPill}
                     </div>
                   )}
                 </div>
@@ -772,6 +785,27 @@ function RewardsPage() {
                     />
                     <span className="text-sm font-medium text-[var(--sea-ink)]">
                       {c.activeToggle}
+                    </span>
+                  </label>
+
+                  {/* Birthday-only toggle */}
+                  <label className="flex cursor-pointer items-start gap-3">
+                    <input
+                      type="checkbox"
+                      checked={form.is_birthday_only}
+                      onChange={(e) =>
+                        updateForm("is_birthday_only", e.target.checked)
+                      }
+                      className="mt-0.5 h-4 w-4 rounded border-[var(--line)] accent-[var(--lagoon)]"
+                    />
+                    <span>
+                      <span className="flex items-center gap-1.5 text-sm font-medium text-[var(--sea-ink)]">
+                        <Cake size={14} className="text-[var(--lagoon)]" />
+                        {c.birthdayOnly}
+                      </span>
+                      <span className="mt-0.5 block text-xs text-[var(--sea-ink-soft)]">
+                        {c.birthdayOnlyHint}
+                      </span>
                     </span>
                   </label>
 
