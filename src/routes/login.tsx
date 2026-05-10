@@ -19,6 +19,8 @@ function LoginPage() {
   const [error, setError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
 
+
+  console.log("Auth state:", { user, loading });
   useEffect(() => {
     if (!loading && user) {
       navigate({ to: "/dashboard" });
